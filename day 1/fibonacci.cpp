@@ -6,16 +6,19 @@ int main()
 
     int n;
     cin >> n;
-    int zero = 0, one = 1;
+    int zero = 1, one = 1;
     int sum = 0;
-    cout << zero << " " << one << " ";
-    for (int i = 2; i < n; i++)
+    if (n == 0 || n == 1)
+        cout << one << endl;
+    else
     {
-        sum = zero + one;
-        cout << sum << " ";
-        zero = one;
-        one = sum;
+        for (int i = 2; i < n; i++)
+        {
+            sum = zero + one;
+            zero = one;
+            one = sum;
+        }
+        cout << sum << endl;
     }
-
     return 0;
 }
