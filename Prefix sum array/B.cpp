@@ -6,25 +6,32 @@ int main()
     cin >> t;
     while (t--)
     {
-        long long n, q;
+        int n, q;
         cin >> n;
-        vector<long long> a;
-        long long L, R;
-        for (long long i = 0; i < n; i++)
+        vector<int> arr(n);
+        vector<int> PF(n);
+        for (int i = 0; i < n; i++)
         {
-            long long ele;
-            cin >> ele;
-            a.push_back(ele);
+            cin >> arr[i];
+            if (i == 0)
+            {
+                PF[i] = arr[i];
+            }
+            else
+            {
+                PF[i] = arr[i] + PF[i - 1];
+            }
         }
         cin >> q;
-        for (long long i = 0; i < q; i++)
+        while (q--)
         {
-            long long sum = 0;
-            cin >> L >> R;
-            for (long long i = L - 1; i <= R - 1; i++)
-            {
-                sum += a[i];
-            }
+            int l, r;
+            cin >> l >> r;
+            int sum = 0;
+            if (l == 1)
+                sum = PF[r - 1];
+            else
+                sum = PF[r - 1] - PF[l - 2];
             cout << sum << endl;
         }
     }
