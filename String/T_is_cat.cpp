@@ -1,42 +1,48 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <cctype>
+
 using namespace std;
-int main()
-{
+
+bool isCatMeowing(const string& s) {
+    int state = 0;
+    for (char c : s) {
+        switch(state) {
+            case 0:
+                if (tolower(c) == 'm') state = 1;
+                break;
+            case 1:
+                if (tolower(c) == 'e') state = 2;
+                else if (tolower(c) == 'm') state = 1;
+                else state = 0;
+                break;
+            case 2:
+                if (tolower(c) == 'o') state = 3;
+                else if (tolower(c) == 'e') state = 2;
+                else state = 0;
+                break;
+            case 3:
+                if (tolower(c) == 'w') state = 4;
+                else if (tolower(c) == 'o') state = 3;
+                else state = 0;
+                break;
+            case 4:
+                return false;
+        }
+    }
+    return state == 4;
+}
+
+int main() {
     int t;
     cin >> t;
-    while (t--)
-    {
+    while (t--) {
         int n;
         cin >> n;
         string s;
         cin >> s;
-        int flag = 0;
-
-        string cat = "meow";
-        for (auto x : s)
-        {
-            x = tolower(x);
-        }
-        if (s.length() < 4)
-            flag = 0;
-        else
-        {
-            for (int i = 0; i < s.length(); i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    if (s[i] == cat[j])
-                    {
-                        flag = 1;
-                        break;
-                    }
-                }
-            }
-            if (flag == 1)
-                cout << "Yes" << endl;
-            else
-                cout << "No" << endl;
-        }
+        if (isCatMeowing(s)) cout << "YES" << endl;
+        else cout << "NO" << endl;
     }
     return 0;
 }

@@ -1,23 +1,45 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-bool isPalindrome(string S)
+
+int noOfChar(string str)
 {
-    string P = S;
-
-    reverse(P.begin(), P.end());
-
-    if (S == P)
+    unordered_set<char> s;
+    for (int i = 0; i < str.size(); i++)
     {
-
-        return true;
+        s.insert(str[i]);
     }
-    else
-    {
-        return false;
-    }
+    return s.size();
 }
 
+bool isNewPalindrome(string s)
+{
+
+    int no_of_char = noOfChar(s);
+
+    unordered_map<char, int> freq;
+    int count = 0;
+
+    for (char c : s)
+    {
+        freq[c]++;
+    }
+    for (auto i = freq.begin(); i != freq.end(); i++)
+    {
+        if (i->second % 2 != 0)
+            count++;
+    }
+    // for (auto it = freq.begin(); it != freq.end(); it++)
+    // {
+    //     cout << "Key: " << it->first
+    //          << ", Value: " << it->second << endl;
+    //     ++it;
+    // }
+    if (no_of_char < 2)
+        return false;
+    else if (((s.size() % 2 == 0 && count == 0) || (s.size() % 2 != 0 && count == 1)) && no_of_char >= 2)
+        return true;
+    return false;
+}
 int main()
 {
     int n;
@@ -26,34 +48,13 @@ int main()
     {
         string s;
         cin >> s;
-        int count;
-        vector<int>
-            freq(128);
 
-        for (int i = 0; i < s.length(); i++)
-            freq[s[i]]++;
-
-        int counter = 0;
-        for (int i = 0; i < 128; i++)
         {
-            if (freq[i] > 0)
-                counter++;
-            if (freq[i] > 1)
-                count++;
-        }
-
-        if ((counter > 2 && count > 1) || s.length() > 3)
-        {
-            if (isPalindrome(s))
-            {
+            if (isNewPalindrome(s))
                 cout << "Yes" << endl;
-            }
             else
                 cout << "No" << endl;
         }
-        else if (counter <= 2)
-        {
-            cout << "No" << endl;
-        }
     }
+    return 0;
 }
