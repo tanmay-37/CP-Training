@@ -4,6 +4,7 @@
         "ostream": "cpp",
         "cmath": "cpp",
         "tuple": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "unordered_map": "cpp"
     }
 }
